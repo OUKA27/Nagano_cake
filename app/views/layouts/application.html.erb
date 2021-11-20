@@ -1,15 +1,40 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>NaganoCake</title>
+    <title>ながのCAKE</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container">
+      <header>
+        <% if admin_signed_in? %>
+          <li><%= link_to "商品一覧"%></li>
+          <li><%= link_to "会員一覧"%></li>
+          <li><%= link_to "注文履歴一覧"%></li>
+          <li><%= link_to "ジャンル一覧"%></li>
+          <li><%= link_to "ログアウト"%></li>
+        <% else %>
+          <li><%= link_to "About"%></li>
+          <li><%= link_to "商品一覧"%></li>
+          <li><%= link_to "新規登録"%></li>
+          <li><%= link_to "ログイン"%></li>
+        <% end %>
+      </header>
+
+      <main>
+        <% if flash[:success] %>
+          <div class="alert alert-success text-center" role="alert"><%= flash[:success] %></div>
+        <% elsif flash[:warning] %>
+          <div class="alert alert-warning text-center" role="alert"><%= flash[:warning] %></div>
+        <% end %>
+          <%= yield %>
+      </main>
+      <footer>
+      </footer>
+    </div>
   </body>
 </html>
